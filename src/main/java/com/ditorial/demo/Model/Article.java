@@ -1,34 +1,88 @@
 package com.ditorial.demo.Model;
 
+import java.util.List;
+import java.util.Set;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "article")
 public class Article {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id ;
+
     private String title;
+    
     private String content;
-    private String username_author;
-    private String username_editor;
-    private String[] username_reviewers;
+    
+    @ManyToOne
+    @JoinColumn(name = "author_username")
+    private Author author;
+    
+    @ManyToOne
+    @JoinColumn(name = "editor_username")
+    private Editor editor;
+    
+    @ManyToMany
+    @JoinTable(
+    name = "article_reviewer",                // name of the join table
+    joinColumns = @JoinColumn(name = "article_id"),    // FK to this entity
+    inverseJoinColumns = @JoinColumn(name = "reviewer_username")  // FK to the other entity
+    )
+    private Set<Reviewer> reviewers;
+    
     private String status;
+    
     private String category;
+    
+    @Column(nullable = true)
     private String[] tags;
+    
     private String[] reviews;
+    
+    @Column(nullable = true)
     private String date_of_publication;
+    
+    @Column(nullable = true)
     private String date_of_creation;
+    
+    @Column(nullable = true)
     private String date_of_modification;
+    
+    @Column(nullable = true)
     private String image_cover;
+    
+    @Column(nullable = true)
     private String[] comments;
+    
+    @Column(nullable = true)
     private String[] likes;
 
-    //Constructor
-    public Article(int id, String title, String content, String username_author, String username_editor,
-                   String[] username_reviewers, String status, String category, String[] tags,
+    //Constructors
+    public Article() {
+        // constructeur sans argument obligatoire pour JPA/Hibernate
+    }
+    // Constructor with all fields
+    public Article(int id, String title, String content, Author author, Editor editor,
+                   Set<Reviewer> reviewers, String status, String category, String[] tags,
                    String[] reviews, String date_of_publication, String date_of_creation,
                    String date_of_modification, String image_cover, String[] comments, String[] likes) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.username_author = username_author;
-        this.username_editor = username_editor;
-        this.username_reviewers = username_reviewers;
+        this.author = author;
+        this.editor = editor;
+        this.reviewers = reviewers;
         this.status = status;
         this.category = category;
         this.tags = tags;
@@ -60,23 +114,23 @@ public class Article {
     public void setContent(String content) {
         this.content = content;
     }
-    public String getUsername_author() {
-        return username_author;
+    public Author getAuthor() {
+        return author;
     }
-    public void setUsername_author(String username_author) {
-        this.username_author = username_author;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
-    public String getUsername_editor() {
-        return username_editor;
+    public Editor getEditor() {
+        return editor;
     }
-    public void setUsername_editor(String username_editor) {
-        this.username_editor = username_editor;
+    public void setEditor(Editor editor) {
+        this.editor = editor;
     }
-    public String[] getUsername_reviewers() {
-        return username_reviewers;
+    public Set<Reviewer> getReviewers() {
+        return reviewers;
     }
-    public void setUsername_reviewers(String[] username_reviewers) {
-        this.username_reviewers = username_reviewers;
+    public void setReviewers(Set<Reviewer> reviewers) {
+        this.reviewers = reviewers;
     }
     public String getStatus() {
         return status;

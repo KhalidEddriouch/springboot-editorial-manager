@@ -2,10 +2,22 @@ package com.ditorial.demo.Model;
 
 import java.util.Date;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "author")
 public class Author {
+
+
     private String first_name;
+    
     private String last_name;
-    private String user_name;
+
+    @Id
+    private String username;
+
     private Date date_of_birth;
     private String password;
     private String email;
@@ -18,13 +30,17 @@ public class Author {
     private String profile_picture;
     private String cv;
 
-    //Constructor
-    public Author(String first_name, String last_name, String user_name, Date date_of_birth, String password,
+    //Constructors
+        public Author() {
+        // constructeur sans argument obligatoire pour JPA/Hibernate
+    }
+    // Constructor with all fields
+    public Author(String first_name, String last_name, String username, Date date_of_birth, String password,
                   String email, String phone_number, String address, String city, String country,
                   String biographie, String study_level, String profile_picture, String cv) {
         this.first_name = first_name;
         this.last_name = last_name;
-        this.user_name = user_name;
+        this.username = username;
         this.date_of_birth = date_of_birth;
         this.password = password;
         this.email = email;
@@ -48,7 +64,7 @@ public class Author {
    }
 
    public String getUser_name() {
-       return user_name;
+       return username;
    }
 
    public Date getDate_of_birth() {
@@ -104,8 +120,8 @@ public class Author {
        this.last_name = last_name;
    }
 
-   public void setUser_name(String user_name) {
-       this.user_name = user_name;
+   public void setUser_name(String username) {
+       this.username = username;
    }
 
    public void setDate_of_birth(Date date_of_birth) {
@@ -151,4 +167,5 @@ public class Author {
    public void setCv(String cv) {
        this.cv = cv;
    }
+
 }

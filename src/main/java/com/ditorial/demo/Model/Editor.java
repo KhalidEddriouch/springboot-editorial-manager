@@ -2,10 +2,17 @@ package com.ditorial.demo.Model;
 
 import java.util.Date;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "editor")
 public class Editor {
     private String first_name;
     private String last_name;
-    private String user_name;
+    @Id
+    private String username;
     private Date date_of_birth;
     private String password;
     private String email;
@@ -18,6 +25,9 @@ public class Editor {
     private String profile_picture;
     private String cv;
 
+    public Editor() {
+        // Default constructor required by JPA/Hibernate
+    }
     // Getters and Setters
     public String getFirst_name() {
         return first_name;
@@ -27,8 +37,8 @@ public class Editor {
        return last_name;
    }
 
-   public String getUser_name() {
-       return user_name;
+   public String getUsername() {
+       return username;
    }
 
    public Date getDate_of_birth() {
@@ -84,8 +94,8 @@ public class Editor {
        this.last_name = last_name;
    }
 
-   public void setUser_name(String user_name) {
-       this.user_name = user_name;
+   public void setUsername(String username) {
+       this.username = username;
    }
 
    public void setDate_of_birth(Date date_of_birth) {
